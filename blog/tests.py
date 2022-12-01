@@ -5,7 +5,7 @@ from .models import Post
 
 # Create your tests here.
 class TestView(TestCase):
-    def test_post_list(self):
+    def setUp(self):
         self.client = Client()
 
     def test_post_list(self):
@@ -50,3 +50,62 @@ class TestView(TestCase):
         self.assertIn(post_002.title, main_area.text)
         # 3.4. '아직 게시물이 없습니다' 라는 문구는 더 이상 나타나지 않는다.
         self.assertNotIn('아직 게시물이 없습니다', main_area.text)
+
+
+
+    # 클라이언트=호출, 서버=응답, 이것을 클래스와 코드 단위로 가져온것
+    # 여기서 호출되는 코드를 서버코드라고 하면, 이 코드를 호출하는 모든 코드(객체, 클래스)가 클라이언트 코드
+
+    # 함수를 만들면 테스트를 위한 새로운 DB가 만들어짐
+
+
+    def test_post_detail(self, soup=None):
+        # 1.1. Post가 하나 있다.
+        post_001 = Post.objects.create(
+            title='첫 번째 포스트입니다.',
+            content='Hello World. We are the world.',
+        )
+        # 1.2. 그 포스트의 url은 'blog/1/' 이다.
+        self.assertEqual(post_001.get_absolute_url(), '/blog/1/')
+
+        # 2. 첫 번째 포스트의 상세 페이지 테스트
+        # 2.1. 첫 번재 post url로 접근하면 정상적으로 작동한다(status code: 200).
+        response = self.client.get(post_001.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # 2.2. 포스트 목록 페이지와 똑같은 내비게이션 바가 있다
+        navbar = soup.nav
+        self.assertIn('Blog', navbar.text)
+        self.assertIn('About Me', navbar.text)
+
+        # 2.3. 첫 번째 포스트의 제목이 포스트 영역(post_area.text)에 있다.
+        main_area = soup.find('div', id='main-area')
+        post_area = main_area.find('div', id='post-area')
+        self.assertIn(post_001.title, post_area.text)
+
+
+        # 2.5. 첫 번째 포스트의 작성자(author)가 포스트 영역에 있다.
+        # 아직 작성 불가
+
+        # 2.6. 첫번째 포스트의 내용(content)이 포스트 영역에 있다.
+        self.assertIn(post_001.content, post_area.text)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
