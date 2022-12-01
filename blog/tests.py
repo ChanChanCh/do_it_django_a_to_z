@@ -16,7 +16,7 @@ class TestView(TestCase):
         self.assertIn('Blog', navbar.text)
         self.assertIn('About Me', navbar.text)
 
-        logo_btn = navbar.find('a', text='Do It Django')
+        logo_btn = navbar.find('a', text='Do it Django')
         self.assertEqual(logo_btn.attrs['href'], '/')
 
         home_btn = navbar.find('a', text='Home')
@@ -116,22 +116,5 @@ class TestView(TestCase):
 
         # 2.6. 첫번째 포스트의 내용(content)이 포스트 영역에 있다.
         self.assertIn(post_001.content, post_area.text)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
