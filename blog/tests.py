@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
+from django.contrib.auth.models import User
 from .models import Post
 
 
@@ -7,6 +8,8 @@ from .models import Post
 class TestView(TestCase):
     def setUp(self):
         self.client = Client()
+        self.user_trump = User.objects.create_user(username='trump',password='sompassword')
+        self.user_obama = User.objects.create_user(username='obama',password='sompassword')
 
     def navbar_test(self, soup):
         navbar = soup.nav
@@ -50,10 +53,12 @@ class TestView(TestCase):
         post_001 = Post.objects.create(
             title='첫 번째 포스트입니다.',
             content='Hello World. We are the world.',
+            author=self.user_trump
         )
         post_002 = Post.objects.create(
             title='두 번째 포스트입니다.',
             content='1등이 전부는 아니잖아요?',
+            author=self.user_obama
         )
         self.assertEqual(Post.objects.count(), 2)
 
@@ -68,6 +73,11 @@ class TestView(TestCase):
         # 3.4. '아직 게시물이 없습니다' 라는 문구는 더 이상 나타나지 않는다.
         self.assertNotIn('아직 게시물이 없습니다', main_area.text)
 
+        self.assertIn(self.user_trump.username.upper(), main_area.text)
+        self.assertIn(self.user_obama.username.upper(), main_area.text)
+
+
+
 
 
     # 클라이언트=호출, 서버=응답, 이것을 클래스와 코드 단위로 가져온것
@@ -81,6 +91,7 @@ class TestView(TestCase):
         post_001 = Post.objects.create(
             title='첫 번째 포스트입니다.',
             content='Hello World. We are the world.',
+            author=self.user_trump,
         )
         # 1.2. 그 포스트의 url은 'blog/1/' 이다.
         self.assertEqual(post_001.get_absolute_url(), '/blog/1/')
@@ -97,6 +108,7 @@ class TestView(TestCase):
         main_area = soup.find('div', id='main-area')
         post_area = main_area.find('div', id='post-area')
         self.assertIn(post_001.title, post_area.text)
+        self.assertIn(self.user_trump.username.upper(), post_area.text)
 
 
         # 2.5. 첫 번째 포스트의 작성자(author)가 포스트 영역에 있다.
