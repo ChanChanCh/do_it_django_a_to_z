@@ -46,7 +46,7 @@
 
                             {% if post.tags.exists %}
                                 <i class="fas fa-tags"></i>
-                                {% for tag in post.tags.all %}
+                                {% for tag in post.tags.iterator %}
                                     <a href="{{ tag.get_absolute_url }}" class="badge badge-light">{{ tag }}</a>
                                 {% endfor %}
                                 <br/>
