@@ -1,22 +1,45 @@
 <!doctype html>
-<html lang="en">
+{% load static %}
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ChanChanCh입니다</title>
+
+    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'single_pages/css/landing.css' %}" media="screen">
+
+    <script src="https://kit.fontawesome.com/39b86c0db4.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
+    {% include 'blog/navbar.html' %}
 
-<nav>
-    <a href="/blog/">Blog</a>
-    <a href="/about_me/">About me</a>
-</nav>
+    <section>
+        <div class="container">
+            <div class="row justify-content-between">
+                 <div class="col-lg-6 text-light">
+                     <h1 class="mt-5">ChanChanCh</h1>
+                     <p>ChanChanCh홈페이지!! </p>
 
-<h1>안녕하세요. ChanChanCh 입니다</h1>
-<h2>대문 페이지</h2>
-<h3>아직 만들지 않음</h3>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+
+
+    <div class="fixed-bottom">
+        {% include 'blog/footer.html' %}
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
 
 
 
