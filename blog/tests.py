@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from .models import Post, Category, Tag, Comment
 
+
 class TestView(TestCase) :
     def setUp(self) :
         self.client = Client()
