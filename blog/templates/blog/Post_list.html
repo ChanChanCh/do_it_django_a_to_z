@@ -41,11 +41,11 @@
               {% if p.hook_text %}
                 <h5 class="text-muted">{{ p.hook_text }}</h5>
               {% endif %}
-              <p class="card-text">{{ p.get_absolute_url | truncatewords_html:45 | safe }}</p>
+              <p class="card-text">{{ p.get_content_markdown | truncatewords_html:45 | safe }}</p>
 
               {% if p.tags.exists %}
                     <i class="fas fa-tags"></i>
-                    {% for tag in p.tags.iterator %}
+                    {% for tag in p.tags.all %}
                         <a href="{{ tag.get_absolute_url }}"><span class="badge badge-pill badge-light">{{ tag }}</span></a>
                             {% endfor %}
                             <br/>
