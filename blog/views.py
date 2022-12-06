@@ -88,6 +88,7 @@ class PostCreate(LoginRequiredMixin,UserPassesTestMixin, CreateView):
 class PostList(ListView):
     model = Post
     ordering = '-pk'
+    paginate_by = 5
 
 
 
