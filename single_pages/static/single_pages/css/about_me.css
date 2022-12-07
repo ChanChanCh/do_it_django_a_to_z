@@ -1,10 +1,5 @@
 body{
-    background: url('/static/single_pages/images/bg3.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size:cover;
-    background opacity: 0.33;
+ background-color: bisque;
 
 }
 
